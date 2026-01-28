@@ -56,8 +56,8 @@ export default function RootLayout({ children }) {
             </nav>
 
             <div className="flex items-center gap-2">
-              <a href="https://2cube.studio/contact" target="_blank" rel="noopener noreferrer" className="hidden sm:block bg-[#FF3B1D] text-white px-4 py-2 rounded-full text-xs font-bold hover:bg-orange-600 shadow-md shadow-orange-500/20 cursor-pointer active:scale-95 transition-all">
-                Let's Talk
+              <a href="/contact"  className="hidden sm:block bg-[#FF3B1D] text-white px-4 py-2 rounded-full text-xs font-bold hover:bg-orange-600 shadow-md shadow-orange-500/20 cursor-pointer active:scale-95 transition-all">
+               Help & Feedback
               </a>
               <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-1.5 text-slate-800 hover:bg-slate-50 rounded-lg cursor-pointer transition-colors">
                 {isOpen ? <X className="w-5 h-5 text-[#FF3B1D]" /> : <Menu className="w-5 h-5" />}
@@ -86,7 +86,7 @@ export default function RootLayout({ children }) {
               </div>
 
               <div className="mt-5 mb-20 px-1">
-                 <a href="https://2cube.studio/contact" target="_blank" className="block w-full bg-[#FF3B1D] text-white py-3.5 rounded-xl text-center text-sm font-black active:scale-95 transition-transform uppercase">LET'S TALK</a>
+                 <a href="/contact"  className="block w-full bg-[#FF3B1D] text-white py-3.5 rounded-xl text-center text-sm font-black active:scale-95 transition-transform uppercase">Help & Feedback</a>
               </div>
             </nav>
           </div>
@@ -101,7 +101,7 @@ export default function RootLayout({ children }) {
             <p className="text-slate-400 text-[12px] md:text-sm font-bold uppercase tracking-widest">© 2026 PDF Machine. Secure by 2cube Studio.</p>
             <div className="flex justify-center gap-6">
               <Link href="/privacy-policy" className={`text-xs font-bold uppercase transition-colors ${isActive('/privacy-policy') ? 'text-[#FF3B1D]' : 'text-slate-400 hover:text-[#FF3B1D]'}`}>Privacy Policy</Link>
-              <a href="https://2cube.studio/contact" target="_blank" className="text-slate-400 hover:text-[#FF3B1D] text-xs font-bold uppercase transition-colors">Contact Us</a>
+              <a href="/contact"  className="text-slate-400 hover:text-[#FF3B1D] text-xs font-bold uppercase transition-colors">Contact Us</a>
             </div>
           </div>
         </footer>
