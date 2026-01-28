@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+  
+}
+#tools { scroll-margin-top: 120px; }
+*:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
