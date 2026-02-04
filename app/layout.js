@@ -4,28 +4,42 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation"; // Path check karne ke liye logic
+import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
+import Script from "next/script"; // ✅ Added for Google Analytics
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
-  const pathname = usePathname(); // Current URL nikalne ke liye
+  const pathname = usePathname();
 
   const closeMenu = () => {
     setIsOpen(false);
     setIsMoreOpen(false);
   };
 
-  // Helper function: Link active hai ya nahi check karne ke liye
   const isActive = (path) => pathname === path;
 
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen flex flex-col bg-white bg-subtle-grid`}>
         
+        {/* ✅ Google Analytics Scripts Added Here */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-ELV49B0MW3"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ELV49B0MW3');
+          `}
+        </Script>
+
         <header className="fixed top-0 w-full z-[100] bg-white border-b border-gray-100 h-14 md:h-20 shadow-sm">
           <div className="max-w-7xl mx-auto px-4 md:px-6 h-full flex items-center justify-between">
             
@@ -38,7 +52,7 @@ export default function RootLayout({ children }) {
               </span>
             </Link>
 
-            {/* Desktop Navigation with Active Class */}
+            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-[14px] font-bold">
               <Link href="/merge-pdf" className={`${isActive('/merge-pdf') ? 'text-[#FF3B1D]' : 'text-slate-600'} hover:text-[#FF3B1D] transition-colors cursor-pointer`}>Merge PDF</Link>
               <Link href="/split-pdf" className={`${isActive('/split-pdf') ? 'text-[#FF3B1D]' : 'text-slate-600'} hover:text-[#FF3B1D] transition-colors cursor-pointer`}>Split PDF</Link>
@@ -65,7 +79,7 @@ export default function RootLayout({ children }) {
             </div>
           </div>
 
-          {/* Mobile Menu with Active Class */}
+          {/* Mobile Menu */}
           <div className={`lg:hidden fixed inset-0 top-14 bg-white w-full h-screen z-[90] transition-transform duration-500 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <nav className="flex flex-col p-4 gap-0.5 text-[15px] font-bold h-full overflow-y-auto">
               <Link href="/merge-pdf" onClick={closeMenu} className={`py-2.5 border-b border-slate-50 rounded-lg px-3 transition-colors ${isActive('/merge-pdf') ? 'text-[#FF3B1D] bg-orange-50/50' : 'text-slate-700 active:bg-slate-50'}`}>Merge PDF</Link>
