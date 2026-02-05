@@ -247,8 +247,7 @@ export default function SignPDF() {
       <meta name="description" content="Sign PDF documents online for free. Add electronic signatures, text, and stamps securely. No registration required. Easy to use and secure." />
       <meta name="keywords" content="sign pdf, digital signature, electronic signature, free pdf signer, online pdf tools" />
 
-      {/* Font for Signatures */}
-      <style jsx global>{` @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap'); `}</style>
+
 
       {/* 🟢 HERO SECTION */}
       <section className="pt-18 pb-12 px-6 text-center space-y-4 max-w-5xl mx-auto">
