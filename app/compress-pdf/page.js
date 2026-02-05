@@ -6,7 +6,8 @@ import { Upload, FileText, Download, Loader2, CheckCircle, X, Zap, FileCheck, In
 
 export default function CompressPDFHub() {
   // --- GLOBAL STATE ---
-  const [activeTab, setActiveTab] = useState("client");
+  // ✅ Updated: default state set to "server" for Standard Optimization
+  const [activeTab, setActiveTab] = useState("server"); 
   const [file, setFile] = useState(null);
   const [isCompressing, setIsCompressing] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -24,7 +25,6 @@ export default function CompressPDFHub() {
     const initPdfJs = async () => {
       try {
         const { pdfjs } = await import('react-pdf');
-        // ✅ Version mismatch aur Specified error dono ka fix:
         pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
       } catch (error) {
         console.error("Worker Initialization Error:", error);
@@ -67,7 +67,6 @@ export default function CompressPDFHub() {
     setError(null);
   };
 
-  // --- ADVICE TEXT ---
   const getCompressionAdvice = (val) => {
     if (val <= 0.3) return { 
         title: "Max Compression", 
@@ -86,7 +85,6 @@ export default function CompressPDFHub() {
     };
   };
 
-  // --- LOGIC: COMPRESSION ---
   const compressClientSide = async () => {
     if (!file) return;
     setIsCompressing(true);
@@ -94,7 +92,6 @@ export default function CompressPDFHub() {
     setError(null);
 
     try {
-      // ✅ Worker specification fix:
       const { pdfjs } = await import('react-pdf');
       const arrayBuffer = await file.arrayBuffer();
       const loadingTask = pdfjs.getDocument({ data: arrayBuffer });
@@ -134,7 +131,6 @@ export default function CompressPDFHub() {
 
       const pdfBlob = newPdf.output("blob");
 
-      // ✅ SIZE LOGIC: Agar size badh raha ho toh original file return karein
       if (pdfBlob.size >= originalSize) {
           setError("PDF is already optimized. Original file returned.");
           setCompressedSize(originalSize);
@@ -210,7 +206,7 @@ export default function CompressPDFHub() {
                   ${activeTab === 'client' ? 'text-[#FF3B1D] bg-orange-50 shadow-sm' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'}`}
               >
                   <Zap className="w-4 h-4" />
-                  Strong Compression
+                  Strong Compression 
                   {activeTab === 'client' && <span className="absolute -top-2 -right-2 bg-[#FF3B1D] text-white text-[10px] px-2 py-0.5 rounded-full shadow-sm">Smallest</span>}
               </button>
               <button 
