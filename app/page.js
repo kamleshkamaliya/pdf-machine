@@ -61,7 +61,7 @@ export default function Home() {
     },
     {
       title: "JPG to PDF",
-      desc: "ombine JPG, PNG, and WebP images into a single professional PDF document. Fast, secure, and 100% free.",
+      desc: "Combine JPG, PNG, and WebP images into a single professional PDF document. Fast, secure, and 100% free.",
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -74,7 +74,7 @@ export default function Home() {
       desc: "Convert PDF pages into high-quality JPG images.",
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2-2v12a2 2 0 002 2z" />
         </svg>
       ),
       link: "/pdf-to-jpg",
@@ -100,7 +100,6 @@ export default function Home() {
   return (
     <div className="w-full flex flex-col items-center bg-[#F8FAFC] min-h-screen">
       
-      {/* 🔴 SEO HELPER (This will change browser title) */}
       <title>PDF Machine | Free Online PDF Tools: Merge, Split, Sign & Compress</title>
       <meta name="description" content="Fast, secure, and 100% free online PDF tools. Merge, split, compress, sign, and convert PDFs instantly." />
 
@@ -113,9 +112,18 @@ export default function Home() {
         <p className="text-slate-500 text-lg md:text-1xl max-w-3xl mx-auto font-medium leading-relaxed">
           Fast, secure, and free tools to manage your PDFs. Merge, split, compress, and convert in seconds without any signup.
         </p>
+        
+        {/* ✅ SEO Banners added here 
+        <div className="flex flex-wrap justify-center gap-4 pt-4">
+           <div className="bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm text-xs font-bold text-slate-600 uppercase tracking-widest">
+              100% Secure & Private - No file leaves your browser
+           </div>
+           <div className="bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm text-xs font-bold text-slate-600 uppercase tracking-widest">
+              No Signup, No Limits
+           </div>
+        </div> */}
       </section>
 
-      {/* ... (Baki ka tools grid, why choose us, security, aur FAQ section same rahega) */}
       {/* 🟡 TOOLS GRID */}
       <section id="tools" className="w-full max-w-[1180px] px-6 mb-24 scroll-mt-24 md:scroll-mt-32">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -161,7 +169,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ... rest of the code as you provided ... */}
       <section className="w-full bg-white py-20 px-6 border-y border-slate-100">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
             <div className="space-y-4">
@@ -205,9 +212,13 @@ export default function Home() {
             </h2>
         </div>
         <div className="bg-white rounded-[2.5rem] p-4 md:p-10 shadow-[0_10px_50px_rgba(0,0,0,0.03)] border border-slate-50">
-            <FaqItem question="1. Is PDF Machine completely free to use?" answer="Yes, it is 100% free!" />
-            <FaqItem question="2. Will my file quality decrease?" answer="Not at all. Our advanced algorithm balances clarity and quality." />
-            <FaqItem question="6. Is PDF Machine safe for my data?" answer="Privacy is our top priority. Files are deleted after 60 minutes." />
+            {/* ✅ Updated FAQ 1 to 6 as requested */}
+            <FaqItem question="1. Is PDF Machine completely free to use?" answer="Yes, all professional tools on PDF Machine are 100% free with no hidden subscriptions or limits." />
+            <FaqItem question="2. Will my file quality decrease after compression or conversion?" answer="Our advanced algorithms are designed to maintain high quality while optimizing file size." />
+            <FaqItem question="3. Do I need to create an account to sign or merge PDFs?" answer="No account or signup is required. You can start using our tools instantly." />
+            <FaqItem question="4. Can I use PDF Machine on my mobile device?" answer="Absolutely! Our platform is fully responsive and works perfectly on iPhone, Android, and tablets." />
+            <FaqItem question="5. What file formats are supported for conversion?" answer="We support JPG, PNG, WebP, and standard PDF documents for various conversions." />
+            <FaqItem question="6. Is PDF Machine safe for my sensitive data?" answer="Privacy is our top priority. Files are processed locally or through encrypted tunnels and are automatically deleted after 60 minutes." />
         </div>
       </section>
     </div>
