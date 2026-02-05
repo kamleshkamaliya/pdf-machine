@@ -90,7 +90,7 @@ export default function PdfToJpgDesign() {
       <title>PDF to JPG Online - Convert PDF to Images for Free | PDF MACHINE</title>
       <meta name="description" content="Convert your PDF pages into high-quality JPG images instantly. 100% free, secure, and no signup required." />
 
-      <div className="pt-32 pb-20 px-6 relative w-full min-h-screen flex flex-col items-center bg-slate-50/50">
+      <div className="pt-18 pb-18 px-6 relative w-full min-h-screen flex flex-col items-center bg-slate-50/50">
         <div className="fixed top-0 left-0 w-[500px] h-[500px] bg-orange-200/30 rounded-full mix-blend-multiply filter blur-[100px] animate-blob -z-10"></div>
         <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-red-200/30 rounded-full mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000 -z-10"></div>
 

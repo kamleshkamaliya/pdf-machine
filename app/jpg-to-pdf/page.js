@@ -72,7 +72,7 @@ export default function JpgToPdfPage() {
       <meta name="description" content="Convert JPG, PNG, and other images to PDF online for free. Combine multiple images into one single PDF document securely and instantly." />
       <meta name="keywords" content="jpg to pdf, images to pdf, png to pdf, convert image to pdf online, free pdf machine" />
 
-      <div className="pt-24 md:pt-32 pb-20 px-4 md:px-6 relative w-full min-h-screen flex flex-col items-center bg-slate-50/50">
+      <div className="pt-15 md:pt-18 pb-20 px-4 md:px-6 relative w-full min-h-screen flex flex-col items-center bg-slate-50/50">
         
         {/* Background Blobs (Original Design) */}
         <div className="fixed top-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-orange-200/30 rounded-full mix-blend-multiply filter blur-[100px] animate-blob -z-10"></div>

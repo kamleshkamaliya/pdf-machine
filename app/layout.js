@@ -3,12 +3,12 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react"; // ✅ Added useLayoutEffect
 import { usePathname } from "next/navigation";
 import { 
   Menu, X, ChevronDown, Share2, Facebook, Linkedin, 
   Mail, Copy, CheckCircle2 
-} from "lucide-react"; // ✅ Instagram removed from imports
+} from "lucide-react";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -23,6 +23,11 @@ export default function RootLayout({ children }) {
   const shareUrl = "https://pdfmachine.pro/";
   const shareTitle = "PDF Machine Pro - Fast, Secure & Free PDF Tools";
 
+  // ✅ MOBILE SCROLL FIX: Har page change par scroll top par jayega
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const closeMenu = () => {
     setIsOpen(false);
     setIsMoreOpen(false);
@@ -36,7 +41,6 @@ export default function RootLayout({ children }) {
 
   const isActive = (path) => pathname === path;
 
-  // Social Links (Removed Instagram)
   const socialLinks = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`,
@@ -105,16 +109,15 @@ export default function RootLayout({ children }) {
           </div>
         </header>
 
-        {/* ✅ SOCIAL SHARE MODAL (Instagram Removed) */}
         {showShareModal && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowShareModal(false)}></div>
             <div className="bg-white w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in zoom-in duration-300">
                <div className="p-6 border-b border-slate-50 flex items-center justify-between">
                   <h3 className="font-black text-slate-900 uppercase tracking-tighter text-lg">Share Tool</h3>
-                  <button onClick={() => setShowShareModal(false)} className="p-2 hover:bg-slate-50 rounded-full text-slate-400"><X className="w-5 h-5"/></button>
+                  <button onClick={() => setShowShareModal(false)} className="p-2 rounded-full text-slate-400"><X className="w-5 h-5"/></button>
                </div>
-               <div className="p-6 grid grid-cols-3 gap-4"> {/* ✅ Changed to 3 columns */}
+               <div className="p-6 grid grid-cols-3 gap-4">
                   <a href={socialLinks.facebook} target="_blank" className="flex flex-col items-center gap-2 group">
                     <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform"><Facebook className="w-6 h-6"/></div>
                     <span className="text-[10px] font-bold text-slate-500 uppercase">Facebook</span>
@@ -141,18 +144,17 @@ export default function RootLayout({ children }) {
           </div>
         )}
 
+        {/* ✅ Scroll Fix is now part of the layout lifecycle */}
         <main className="items-center relative z-10 w-full pt-14 md:pt-20">
            {children}
         </main>
 
-        {/* ✅ UPDATED FOOTER (Instagram Removed) */}
         <footer className="border-t border-gray-100 py-10 bg-white mt-auto w-full">
           <div className="max-w-7xl mx-auto px-6 flex flex-col items-center space-y-6">
-            
             <div className="flex items-center gap-4">
-               <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://pdfmachine.pro/" className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 hover:text-[#FF3B1D] hover:bg-orange-50 transition-all"><Facebook className="w-5 h-5"/></a>
-               <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://pdfmachine.pro/" className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 hover:text-[#FF3B1D] hover:bg-orange-50 transition-all"><Linkedin className="w-5 h-5"/></a>
-               <a target="_blank" href="mailto:https://pdfmachine.pro/" className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 hover:text-[#FF3B1D] hover:bg-orange-50 transition-all"><Mail className="w-5 h-5"/></a>
+               <a target="_blank" href={socialLinks.facebook} className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 hover:text-[#FF3B1D] hover:bg-orange-50 transition-all"><Facebook className="w-5 h-5"/></a>
+               <a target="_blank" href={socialLinks.linkedin} className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 hover:text-[#FF3B1D] hover:bg-orange-50 transition-all"><Linkedin className="w-5 h-5"/></a>
+               <a href={socialLinks.email} className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400 hover:text-[#FF3B1D] hover:bg-orange-50 transition-all"><Mail className="w-5 h-5"/></a>
             </div>
 
             <p className="text-slate-400 text-[12px] md:text-sm font-bold uppercase tracking-widest text-center">
