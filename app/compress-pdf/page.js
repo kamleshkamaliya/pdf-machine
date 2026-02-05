@@ -19,15 +19,15 @@ export default function CompressPDFHub() {
   const [quality, setQuality] = useState(0.6); 
   const [progress, setProgress] = useState(0);
   
-  // --- 🛠️ WORKER SETUP (STABLE VERSION) ---
+  // --- 🛠️ WORKER SETUP (STABLE & DYNAMIC VERSION) ---
   useEffect(() => {
     const initPdfJs = async () => {
       try {
-        // Humne ab version 3.11.174 fix kar diya hai, to worker bhi wahi use karega
-        const pdfJS = await import('pdfjs-dist/build/pdf');
-        pdfJS.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`;
+        const { pdfjs } = await import('react-pdf');
+        // ✅ Version mismatch aur Specified error dono ka fix:
+        pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
       } catch (error) {
-        console.error("Worker Error:", error);
+        console.error("Worker Initialization Error:", error);
       }
     };
     initPdfJs();
@@ -94,9 +94,10 @@ export default function CompressPDFHub() {
     setError(null);
 
     try {
-      const pdfJS = await import('pdfjs-dist/build/pdf');
+      // ✅ Worker specification fix:
+      const { pdfjs } = await import('react-pdf');
       const arrayBuffer = await file.arrayBuffer();
-      const loadingTask = pdfJS.getDocument({ data: arrayBuffer });
+      const loadingTask = pdfjs.getDocument({ data: arrayBuffer });
       const pdf = await loadingTask.promise;
       const totalPages = pdf.numPages;
 
@@ -132,8 +133,17 @@ export default function CompressPDFHub() {
       }
 
       const pdfBlob = newPdf.output("blob");
-      setCompressedSize(pdfBlob.size);
-      setDownloadUrl(URL.createObjectURL(pdfBlob));
+
+      // ✅ SIZE LOGIC: Agar size badh raha ho toh original file return karein
+      if (pdfBlob.size >= originalSize) {
+          setError("PDF is already optimized. Original file returned.");
+          setCompressedSize(originalSize);
+          setDownloadUrl(URL.createObjectURL(file));
+      } else {
+          setCompressedSize(pdfBlob.size);
+          setDownloadUrl(URL.createObjectURL(pdfBlob));
+      }
+
       setIsDone(true);
 
     } catch (error) {
@@ -174,7 +184,6 @@ export default function CompressPDFHub() {
 
   return (
     <>
-      {/* 🌐 SEO TITLES & META (Naya kaam) */}
       <title>Compress PDF Online - 100% Free & Secure | PDF MACHINE</title>
       <meta name="description" content="Reduce your PDF file size instantly without losing quality. Secure, fast, and no registration required. 100% private document processing." />
 
@@ -194,7 +203,6 @@ export default function CompressPDFHub() {
              </p>
           </div>
 
-          {/* TABS */}
           <div className="bg-white p-1.5 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-col sm:flex-row relative">
               <button 
                   onClick={() => { setActiveTab('client'); resetAll(); }}
@@ -216,11 +224,9 @@ export default function CompressPDFHub() {
               </button>
           </div>
 
-          {/* MAIN CARD */}
           <div className={`w-full bg-white/90 backdrop-blur-xl rounded-[2.5rem] p-6 md:p-12 md:pt-5 shadow-2xl ring-1 border border-white/40 transition-colors duration-500
               ${activeTab === 'client' ? 'shadow-orange-500/10 ring-white/60' : 'shadow-blue-500/10 ring-white/60'}`}>
             
-            {/* STATE 1: UPLOAD */}
             {!file && (
               <label className={`h-64 md:h-72 rounded-3xl flex flex-col items-center justify-center relative hover:bg-white/80 transition-all duration-500 cursor-pointer group border-3 border-dashed bg-slate-50/50
                   ${activeTab === 'client' ? 'border-slate-300 hover:border-[#FF3B1D]/50' : 'border-slate-300 hover:border-blue-500/50'}`}>
@@ -239,11 +245,9 @@ export default function CompressPDFHub() {
               </label>
             )}
 
-            {/* STATE 2: CONTROLS */}
             {file && !isDone && (
               <div className="animate-in fade-in slide-in-from-bottom-6 duration-500">
                 
-                {/* File Info */}
                 <div className="flex justify-between items-center mb-8 px-2 border-b border-slate-100 pb-5">
                    <div className="flex items-center gap-4">
                       <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm shrink-0
@@ -260,7 +264,6 @@ export default function CompressPDFHub() {
                    </button>
                 </div>
 
-                {/* DYNAMIC ADVICE BOX */}
                 {activeTab === 'client' && !isCompressing && (
                     <div className={`mb-6 p-4 rounded-2xl flex items-start gap-4 border transition-colors duration-300 ${advice.bg} ${advice.border}`}>
                        <div className={`p-2 rounded-lg bg-white/50 ${advice.color} shrink-0`}>
@@ -277,7 +280,6 @@ export default function CompressPDFHub() {
                     </div>
                 )}
 
-                {/* SLIDER */}
                 {!isCompressing && activeTab === 'client' && (
                   <div className="mb-10 px-2">
                      <div className="flex justify-between items-end mb-5">
@@ -299,7 +301,6 @@ export default function CompressPDFHub() {
                   </div>
                 )}
 
-                {/* MESSAGE SERVER */}
                 {!isCompressing && activeTab === 'server' && (
                   <div className="mb-10 px-2 p-4 bg-blue-50 border border-blue-100 rounded-xl flex gap-3 items-start">
                       <div className="bg-blue-100 p-2 rounded-lg text-blue-600 shrink-0">
@@ -315,14 +316,12 @@ export default function CompressPDFHub() {
                   </div>
                 )}
 
-                {/* ERROR MESSAGE */}
                 {error && (
                     <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl text-sm border border-red-100 font-medium flex gap-2">
                         <AlertTriangle className="w-5 h-5 flex-shrink-0"/> {error}
                     </div>
                 )}
 
-                {/* PROGRESS */}
                 {isCompressing && (
                   <div className="mb-8 px-2">
                     <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
@@ -337,7 +336,6 @@ export default function CompressPDFHub() {
                   </div>
                 )}
 
-                {/* ACTIONS */}
                 <div className="flex gap-4 pt-4 border-t border-slate-100 px-2">
                    <button onClick={resetAll} disabled={isCompressing} className="px-6 py-4 rounded-xl font-bold text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-colors disabled:opacity-50 text-sm cursor-pointer">
                      Cancel
@@ -360,7 +358,6 @@ export default function CompressPDFHub() {
               </div>
             )}
 
-            {/* STATE 3: RESULT */}
             {isDone && (
                <div className="animate-in zoom-in duration-500 text-center py-6">
                   
@@ -382,7 +379,7 @@ export default function CompressPDFHub() {
                         <p className="text-3xl md:text-4xl font-black text-green-600">{formatBytes(compressedSize)}</p>
                      </div>
                      <div className="absolute right-0 top-0 bg-green-100 text-green-700 text-xs font-bold px-4 py-1.5 rounded-bl-2xl">
-                       SAVED {Math.round(((originalSize - compressedSize) / originalSize) * 100)}%
+                       SAVED {originalSize > compressedSize ? Math.round(((originalSize - compressedSize) / originalSize) * 100) : 0}%
                      </div>
                   </div>
 
@@ -409,7 +406,6 @@ export default function CompressPDFHub() {
           </div>
         </div>
 
-        {/* 🟠 EXTRA SEO SECTIONS (Naya kaam) */}
         <div className="max-w-4xl w-full mt-24 space-y-20 px-4 pb-10">
           <section className="text-center">
               <h2 className="text-2xl md:text-3xl font-bold text-slate-900 uppercase mb-12 tracking-tight">How to Compress PDF?</h2>

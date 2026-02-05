@@ -282,7 +282,7 @@ export default function SignPDF() {
             </label>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-in fade-in duration-500">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             {/* 🛠️ LEFT PANEL: TOOLS */}
             <div className="lg:col-span-4 space-y-6">
@@ -376,6 +376,7 @@ export default function SignPDF() {
 
                 {/* PDF Wrapper (Fixed Width for Logic, Scrollable for Mobile) */}
                 <div className="w-full overflow-x-auto flex justify-center custom-scrollbar pb-4">
+                   
                     <div className="relative w-[600px] min-w-[600px] h-fit shadow-2xl rounded-xl border border-slate-300 bg-white" id="pdf-wrapper">
                         {allSignatures.map((sig) => (
                           sig.page === pageNumber && (
@@ -439,6 +440,7 @@ export default function SignPDF() {
                             <Page pageNumber={pageNumber} width={600} renderTextLayer={false} renderAnnotationLayer={false} />
                         </Document>
                     </div>
+                    
                 </div>
             </div>
 

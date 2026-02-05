@@ -57,6 +57,7 @@ export default function RootLayout({ children }) {
               <Link href="/merge-pdf" className={`${isActive('/merge-pdf') ? 'text-[#FF3B1D]' : 'text-slate-600'} hover:text-[#FF3B1D] transition-colors cursor-pointer`}>Merge PDF</Link>
               <Link href="/split-pdf" className={`${isActive('/split-pdf') ? 'text-[#FF3B1D]' : 'text-slate-600'} hover:text-[#FF3B1D] transition-colors cursor-pointer`}>Split PDF</Link>
               <Link href="/compress-pdf" className={`${isActive('/compress-pdf') ? 'text-[#FF3B1D]' : 'text-slate-600'} hover:text-[#FF3B1D] transition-colors cursor-pointer`}>Compress</Link>
+              <Link href="/sign-pdf" className={`${isActive('/sign-pdf') ? 'text-[#FF3B1D]' : 'text-slate-600'} hover:text-[#FF3B1D] transition-colors cursor-pointer`}>Sign PDF</Link>
               
               <div className="relative group py-2">
                 <button className={`flex items-center gap-1 font-bold transition-colors cursor-pointer ${isActive('/jpg-to-pdf') || isActive('/pdf-to-jpg') ? 'text-[#FF3B1D]' : 'text-slate-600'} hover:text-[#FF3B1D]`}>
@@ -86,6 +87,7 @@ export default function RootLayout({ children }) {
               <Link href="/split-pdf" onClick={closeMenu} className={`py-2.5 border-b border-slate-50 rounded-lg px-3 transition-colors ${isActive('/split-pdf') ? 'text-[#FF3B1D] bg-orange-50/50' : 'text-slate-700 active:bg-slate-50'}`}>Split PDF</Link>
               <Link href="/compress-pdf" onClick={closeMenu} className={`py-2.5 border-b border-slate-50 rounded-lg px-3 transition-colors ${isActive('/compress-pdf') ? 'text-[#FF3B1D] bg-orange-50/50' : 'text-slate-700 active:bg-slate-50'}`}>Compress PDF</Link>
               <Link href="/pdf-to-word" onClick={closeMenu} className={`py-2.5 border-b border-slate-50 rounded-lg px-3 transition-colors ${isActive('/pdf-to-word') ? 'text-[#FF3B1D] bg-orange-50/50' : 'text-slate-700 active:bg-slate-50'}`}>Convert to Word</Link>
+              <Link href="/sign-pdf" onClick={closeMenu} className={`py-2.5 border-b border-slate-50 rounded-lg px-3 transition-colors ${isActive('/pdf-to-word') ? 'text-[#FF3B1D] bg-orange-50/50' : 'text-slate-700 active:bg-slate-50'}`}>Sign PDF</Link>
               
               <div className="flex flex-col mt-1">
                 <button onClick={() => setIsMoreOpen(!isMoreOpen)} className={`flex items-center justify-between py-3 px-3 font-black cursor-pointer text-[14px] ${isActive('/jpg-to-pdf') || isActive('/pdf-to-jpg') ? 'text-[#FF3B1D]' : 'text-slate-700'}`}>
