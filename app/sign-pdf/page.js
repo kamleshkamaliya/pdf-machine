@@ -251,10 +251,8 @@ export default function SignPDF() {
       <style jsx global>{` @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap'); `}</style>
 
       {/* 🟢 HERO SECTION */}
-      <section className="pt-24 pb-12 px-6 text-center space-y-4 max-w-5xl mx-auto">
-        <div className="w-16 h-16 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center mx-auto mb-4 text-[#FF3B1D]">
-            <Zap className="w-8 h-8" />
-        </div>
+      <section className="pt-18 pb-12 px-6 text-center space-y-4 max-w-5xl mx-auto">
+        
         <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
            Sign PDF <span className="text-[#FF3B1D]">Online.</span>
         </h1>

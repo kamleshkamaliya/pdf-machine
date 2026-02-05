@@ -108,7 +108,7 @@ export default function RootLayout({ children }) {
           </div>
         </header>
 
-        <main className="flex-grow flex flex-col items-center relative z-10 w-full pt-14 md:pt-20">
+        <main className="items-center relative z-10 w-full pt-14 md:pt-20">
            {children}
         </main>
 

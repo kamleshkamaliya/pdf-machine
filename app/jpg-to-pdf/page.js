@@ -13,10 +13,15 @@ export default function JpgToPdfPage() {
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const selectedFiles = Array.from(e.target.files);
-      const validFiles = selectedFiles.filter(f => f.type.startsWith('image/'));
+      
+      // ✅ Updated logic: Only allow JPG, PNG, and WEBP
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      const validFiles = selectedFiles.filter(f => allowedTypes.includes(f.type));
+      
       if (validFiles.length !== selectedFiles.length) {
-        alert("Some files were skipped because they are not images.");
+        alert("Only JPG, PNG, and WEBP images are allowed. Other files were skipped.");
       }
+      
       setFiles(prev => [...prev, ...validFiles]);
       setError(null);
       setDownloadUrl(null);
@@ -90,12 +95,13 @@ export default function JpgToPdfPage() {
             
             {files.length === 0 && (
               <label className="h-64 md:h-72 rounded-3xl flex flex-col items-center justify-center relative hover:bg-white/80 transition-all duration-500 cursor-pointer group border-2 border-dashed border-slate-300 bg-slate-50/50">
-                <input type="file" multiple accept="image/*" onChange={handleFileChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
+                {/* ✅ Added specific accept types */}
+                <input type="file" multiple accept=".jpg,.jpeg,.png,.webp" onChange={handleFileChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
                 <div className="w-20 h-20 bg-white rounded-3xl flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform duration-300 text-[#FF3B1D] border border-slate-100">
                    <FileImage className="w-10 h-10" />
                 </div>
                 <h3 className="text-slate-900 font-bold text-xl md:text-2xl mb-1 uppercase">Select Images</h3>
-                <p className="text-slate-400 font-medium text-xs md:text-sm">JPG, PNG supported</p>
+                <p className="text-slate-400 font-medium text-xs md:text-sm">JPG, PNG, WEBP supported</p>
               </label>
             )}
 
@@ -124,7 +130,8 @@ export default function JpgToPdfPage() {
                   <label className="border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center cursor-pointer hover:bg-slate-50 transition-all min-h-[100px]">
                       <Plus className="w-5 h-5 text-slate-400 mb-1" />
                       <span className="text-[10px] font-bold text-slate-400 uppercase">Add More</span>
-                      <input type="file" multiple accept="image/*" onChange={handleFileChange} className="hidden" />
+                      {/* ✅ Added specific accept types here too */}
+                      <input type="file" multiple accept=".jpg,.jpeg,.png,.webp" onChange={handleFileChange} className="hidden" />
                   </label>
                 </div>
 
