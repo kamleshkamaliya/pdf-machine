@@ -3,7 +3,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import { useState, useLayoutEffect } from "react"; // ✅ Added useLayoutEffect
+import { useState, useLayoutEffect } from "react"; 
 import { usePathname } from "next/navigation";
 import { 
   Menu, X, ChevronDown, Share2, Facebook, Linkedin, 
@@ -23,7 +23,6 @@ export default function RootLayout({ children }) {
   const shareUrl = "https://pdfmachine.pro/";
   const shareTitle = "PDF Machine Pro - Fast, Secure & Free PDF Tools";
 
-  // ✅ MOBILE SCROLL FIX: Har page change par scroll top par jayega
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
@@ -49,8 +48,10 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen flex flex-col bg-white bg-subtle-grid`}>
-        
+ <body 
+  className={`${inter.className} min-h-screen flex flex-col bg-white bg-subtle-grid`}
+  suppressHydrationWarning={true} // 👈 Ye line add kar do
+>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-ELV49B0MW3" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
@@ -73,6 +74,7 @@ export default function RootLayout({ children }) {
               </span>
             </Link>
 
+            {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-[14px] font-bold">
               <Link href="/merge-pdf" className={`${isActive('/merge-pdf') ? 'text-[#FF3B1D]' : 'text-slate-600'} hover:text-[#FF3B1D] transition-colors`}>Merge PDF</Link>
               <Link href="/split-pdf" className={`${isActive('/split-pdf') ? 'text-[#FF3B1D]' : 'text-slate-600'} hover:text-[#FF3B1D] transition-colors`}>Split PDF</Link>
@@ -107,12 +109,43 @@ export default function RootLayout({ children }) {
               </button>
             </div>
           </div>
+
+          {/* ✅ MOBILE MENU ADDED HERE (Fix for toggle issue) */}
+          <div className={`lg:hidden fixed inset-0 top-14 bg-white w-full h-screen z-[90] transition-transform duration-500 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+            <nav className="flex flex-col p-4 gap-1 text-[16px] font-bold h-full overflow-y-auto bg-white">
+              <Link href="/merge-pdf" onClick={closeMenu} className={`py-4 px-4 rounded-xl border-b border-slate-50 ${isActive('/merge-pdf') ? 'text-[#FF3B1D] bg-orange-50' : 'text-slate-700'}`}>Merge PDF</Link>
+              <Link href="/split-pdf" onClick={closeMenu} className={`py-4 px-4 rounded-xl border-b border-slate-50 ${isActive('/split-pdf') ? 'text-[#FF3B1D] bg-orange-50' : 'text-slate-700'}`}>Split PDF</Link>
+              <Link href="/compress-pdf" onClick={closeMenu} className={`py-4 px-4 rounded-xl border-b border-slate-50 ${isActive('/compress-pdf') ? 'text-[#FF3B1D] bg-orange-50' : 'text-slate-700'}`}>Compress PDF</Link>
+              <Link href="/sign-pdf" onClick={closeMenu} className={`py-4 px-4 rounded-xl border-b border-slate-50 ${isActive('/sign-pdf') ? 'text-[#FF3B1D] bg-orange-50' : 'text-slate-700'}`}>Sign PDF</Link>
+              
+              <div className="flex flex-col">
+                <button 
+                  onClick={() => setIsMoreOpen(!isMoreOpen)} 
+                  className={`flex items-center justify-between py-4 px-4 font-black ${isActive('/jpg-to-pdf') || isActive('/pdf-to-jpg') ? 'text-[#FF3B1D]' : 'text-slate-700'}`}
+                >
+                  OTHER TOOLS <ChevronDown className={`w-4 h-4 transition-transform ${isMoreOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {isMoreOpen && (
+                  <div className="flex flex-col gap-1 mx-2 bg-slate-50 rounded-2xl p-2">
+                    <Link href="/jpg-to-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl ${isActive('/jpg-to-pdf') ? 'text-[#FF3B1D] bg-white' : 'text-slate-500'}`}>JPG to PDF</Link>
+                    <Link href="/pdf-to-jpg" onClick={closeMenu} className={`py-3 px-4 rounded-xl ${isActive('/pdf-to-jpg') ? 'text-[#FF3B1D] bg-white' : 'text-slate-500'}`}>PDF to JPG</Link>
+                  </div>
+                )}
+              </div>
+              
+              <div className="mt-10 px-4">
+                 <a href="/contact" onClick={closeMenu} className="block w-full bg-[#FF3B1D] text-white py-4 rounded-2xl text-center font-black shadow-lg shadow-orange-500/20">
+                    HELP & FEEDBACK
+                 </a>
+              </div>
+            </nav>
+          </div>
         </header>
 
         {showShareModal && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowShareModal(false)}></div>
-            <div className="bg-white w-full max-w-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in zoom-in duration-300">
+            <div className="bg-white w-full max-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in zoom-in duration-300">
                <div className="p-6 border-b border-slate-50 flex items-center justify-between">
                   <h3 className="font-black text-slate-900 uppercase tracking-tighter text-lg">Share Tool</h3>
                   <button onClick={() => setShowShareModal(false)} className="p-2 rounded-full text-slate-400"><X className="w-5 h-5"/></button>
@@ -144,7 +177,6 @@ export default function RootLayout({ children }) {
           </div>
         )}
 
-        {/* ✅ Scroll Fix is now part of the layout lifecycle */}
         <main className="items-center relative z-10 w-full pt-14 md:pt-20">
            {children}
         </main>
