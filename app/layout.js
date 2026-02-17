@@ -145,7 +145,7 @@ export default function RootLayout({ children }) {
         {showShareModal && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setShowShareModal(false)}></div>
-            <div className="bg-white w-full max-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in zoom-in duration-300">
+            <div className="bg-white  max-sm rounded-[2rem] shadow-2xl relative z-10 overflow-hidden animate-in zoom-in duration-300">
                <div className="p-6 border-b border-slate-50 flex items-center justify-between">
                   <h3 className="font-black text-slate-900 uppercase tracking-tighter text-lg">Share Tool</h3>
                   <button onClick={() => setShowShareModal(false)} className="p-2 rounded-full text-slate-400"><X className="w-5 h-5"/></button>
