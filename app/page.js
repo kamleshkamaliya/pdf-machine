@@ -90,10 +90,11 @@ export default function Home() {
     },
     {
       title: "Protect PDF",
-      desc: "Encrypt your PDF with a password to prevent unauthorized access.",
-      icon: <Shield className="w-6 h-6" />, 
-      link: "#",
-      comingSoon: true, 
+      desc: "Add AES-256 password protection to your PDF instantly. Secure, fast, and free encryption.",
+      icon: <Shield className="w-6 h-6" />,
+      link: "/protect-pdf",
+      comingSoon: false,
+      badge: "New",
     },
   ];
 

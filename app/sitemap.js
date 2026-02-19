@@ -57,5 +57,12 @@ export default function sitemap() {
       changeFrequency: 'yearly',
       priority: 0.5,
     },
+    {
+      url: `${baseUrl}/protect-pdf`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.5,
+    }
+
   ];
 }
