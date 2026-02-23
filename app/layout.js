@@ -38,6 +38,7 @@ export default function RootLayout({ children }) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Helper to check active route
   const isActive = (path) => pathname === path;
 
   const socialLinks = {
@@ -48,10 +49,10 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
- <body 
-  className={`${inter.className} min-h-screen flex flex-col bg-white bg-subtle-grid`}
-  suppressHydrationWarning={true} // 👈 Ye line add kar do
->
+      <body 
+        className={`${inter.className} min-h-screen flex flex-col bg-white bg-subtle-grid`}
+        suppressHydrationWarning={true}
+      >
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-ELV49B0MW3" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
@@ -101,9 +102,9 @@ export default function RootLayout({ children }) {
                 <Share2 className="w-4 h-4 md:w-4.5 md:h-4.5" />
               </button>
 
-              <a href="/contact" className="hidden sm:block bg-[#FF3B1D] text-white px-4 py-2 rounded-full text-xs font-bold hover:bg-orange-600 shadow-md">
+              <Link href="/contact" className="hidden sm:block bg-[#FF3B1D] text-white px-4 py-2 rounded-full text-xs font-bold hover:bg-orange-600 shadow-md">
                Help & Feedback
-              </a>
+              </Link>
               
               <button onClick={() => setIsOpen(!isOpen)} className="lg:hidden p-1.5 text-slate-800 hover:bg-slate-50 rounded-lg">
                 {isOpen ? <X className="w-5 h-5 text-[#FF3B1D]" /> : <Menu className="w-5 h-5" />}
@@ -111,7 +112,7 @@ export default function RootLayout({ children }) {
             </div>
           </div>
 
-          {/* ✅ MOBILE MENU ADDED HERE (Fix for toggle issue) */}
+          {/* Mobile Menu */}
           <div className={`lg:hidden fixed inset-0 top-14 bg-white w-full h-screen z-[90] transition-transform duration-500 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <nav className="flex flex-col p-4 gap-1 text-[16px] font-bold h-full overflow-y-auto bg-white">
               <Link href="/merge-pdf" onClick={closeMenu} className={`py-4 px-4 rounded-xl border-b border-slate-50 ${isActive('/merge-pdf') ? 'text-[#FF3B1D] bg-orange-50' : 'text-slate-700'}`}>Merge PDF</Link>
@@ -136,9 +137,9 @@ export default function RootLayout({ children }) {
               </div>
               
               <div className="mt-10 px-4">
-                 <a href="/contact" onClick={closeMenu} className="block w-full bg-[#FF3B1D] text-white py-4 rounded-2xl text-center font-black shadow-lg shadow-orange-500/20">
+                 <Link href="/contact" onClick={closeMenu} className="block w-full bg-[#FF3B1D] text-white py-4 rounded-2xl text-center font-black shadow-lg shadow-orange-500/20">
                     HELP & FEEDBACK
-                 </a>
+                 </Link>
               </div>
             </nav>
           </div>
@@ -195,9 +196,28 @@ export default function RootLayout({ children }) {
               © 2026 PDF Machine. Built for privacy & speed.
             </p>
             
+            {/* ✅ UPDATED FOOTER LINKS WITH ACTIVE STATE */}
             <div className="flex justify-center gap-8">
-              <Link href="/privacy-policy" className="text-[10px] font-black uppercase text-slate-500 hover:text-[#FF3B1D] transition-colors tracking-widest">Privacy Policy</Link>
-              <a href="/contact" className="text-[10px] font-black uppercase text-slate-500 hover:text-[#FF3B1D] transition-colors tracking-widest">Contact</a>
+              <Link 
+                href="/privacy-policy" 
+                className={`text-[10px] font-black uppercase tracking-widest transition-colors ${isActive('/privacy-policy') ? 'text-[#FF3B1D]' : 'text-slate-500 hover:text-[#FF3B1D]'}`}
+              >
+                Privacy Policy
+              </Link>
+              
+              <Link 
+                href="/contact" 
+                className={`text-[10px] font-black uppercase tracking-widest transition-colors ${isActive('/contact') ? 'text-[#FF3B1D]' : 'text-slate-500 hover:text-[#FF3B1D]'}`}
+              >
+                Contact
+              </Link>
+              
+              <Link 
+                href="/blog" 
+                className={`text-[10px] font-black uppercase tracking-widest transition-colors ${isActive('/blog') ? 'text-[#FF3B1D]' : 'text-slate-500 hover:text-[#FF3B1D]'}`}
+              >
+                Blog
+              </Link>
             </div>
           </div>
         </footer>
