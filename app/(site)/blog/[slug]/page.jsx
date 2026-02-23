@@ -115,7 +115,7 @@ export default async function BlogPostPage({ params }) {
             <img 
               src={post.featuredImageUrl} 
               alt={post.featuredImageAlt || post.title} 
-              className="w-full h-auto max-h-[600px] object-cover mx-auto"
+              className="w-full h-auto max-h-[500px] object-cover mx-auto"
             />
           </div>
         </div>
