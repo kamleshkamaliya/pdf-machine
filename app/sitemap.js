@@ -1,68 +1,46 @@
-export default function sitemap() {
-  // ⚠️ IMPORTANT: Yahan apni asli website ka URL dalein (localhost nahi)
+import { prisma } from "@/lib/prisma";
+
+export default async function sitemap() {
   const baseUrl = 'https://pdfmachine.pro';
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1, // Homepage sabse zaroori hai
-    },
-    {
-      url: `${baseUrl}/merge-pdf`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8, // Tools high priority hote hain
-    },
-    {
-      url: `${baseUrl}/split-pdf`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/compress-pdf`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/jpg-to-pdf`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/pdf-to-jpg`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/pdf-to-word`, // Maine layout.js se ye bhi add kar diya
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5, // Contact/Legal pages kam change hote hain
-    },
-    {
-      url: `${baseUrl}/privacy-policy`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/protect-pdf`,
-      lastModified: new Date(),
-      changeFrequency: 'yearly',
-      priority: 0.5,
-    }
+  // 1. Database se Blog Posts fetch karo (Auto-Update)
+  const posts = await prisma.post.findMany({
+    where: { status: "PUBLISHED" },
+    select: { slug: true, updatedAt: true },
+  });
 
+  const blogEntries = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: post.updatedAt,
+    changeFrequency: 'weekly',
+    priority: 0.7,
+  }));
+
+  // 2. Apne saare Tools aur Static Pages ki list yahan rakhein
+  // Jab bhi naya tool banao, bas uska naam is array mein daal do
+  const pageRoutes = [
+    '', // Homepage
+    '/blog',
+    '/merge-pdf',
+    '/split-pdf',
+    '/compress-pdf',
+    '/jpg-to-pdf',
+    '/pdf-to-jpg',
+    '/pdf-to-word',
+    '/protect-pdf',
+    '/unlock-pdf', // Naya tool
+    '/contact',
+    '/privacy-policy',
+    '/terms',
   ];
+
+  const staticEntries = pageRoutes.map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: route === '' || route === '/blog' ? 'daily' : 'weekly',
+    priority: route === '' ? 1 : 0.8,
+  }));
+
+  // 3. Sabko merge karke return karo
+  return [...staticEntries, ...blogEntries];
 }
