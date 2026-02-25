@@ -1,5 +1,9 @@
 import { prisma } from "@/lib/prisma";
 
+// 👇 1. IS LINE KO ADD KAREIN: Ye Next.js ko har baar fresh data lene par majboor karega
+export const dynamic = 'force-dynamic';
+export const revalidate = 0; 
+
 export default async function sitemap() {
   const baseUrl = 'https://pdfmachine.pro';
 
@@ -16,10 +20,8 @@ export default async function sitemap() {
     priority: 0.7,
   }));
 
-  // 2. Apne saare Tools aur Static Pages ki list yahan rakhein
-  // Jab bhi naya tool banao, bas uska naam is array mein daal do
   const pageRoutes = [
-    '', // Homepage
+    '', 
     '/blog',
     '/merge-pdf',
     '/split-pdf',
@@ -28,7 +30,7 @@ export default async function sitemap() {
     '/pdf-to-jpg',
     '/pdf-to-word',
     '/protect-pdf',
-    '/unlock-pdf', // Naya tool
+    '/unlock-pdf', 
     '/contact',
     '/privacy-policy',
     '/terms',
@@ -41,6 +43,5 @@ export default async function sitemap() {
     priority: route === '' ? 1 : 0.8,
   }));
 
-  // 3. Sabko merge karke return karo
   return [...staticEntries, ...blogEntries];
 }

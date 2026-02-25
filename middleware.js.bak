@@ -1,19 +1,15 @@
 import { NextResponse } from "next/server";
-import { verifyAdminToken } from "./lib/auth";
 
 export function middleware(req) {
   const { pathname } = req.nextUrl;
-
-  if (!pathname.startsWith("/admin")) return NextResponse.next();
-  if (pathname === "/admin/login") return NextResponse.next();
-
   const token = req.cookies.get("admin_token")?.value;
-  const decoded = token ? verifyAdminToken(token) : null;
 
-  if (!decoded) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/admin/login";
-    return NextResponse.redirect(url);
+  // 1. Agar path /admin se shuru hota hai aur login page nahi hai
+  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
+    // 2. Agar token nahi hai, toh login par bhej do
+    if (!token) {
+      return NextResponse.redirect(new URL("/admin/login", req.url));
+    }
   }
 
   return NextResponse.next();

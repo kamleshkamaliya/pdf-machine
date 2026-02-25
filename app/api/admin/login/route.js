@@ -21,15 +21,18 @@ export async function POST(req) {
       return new NextResponse("Invalid credentials", { status: 401 });
     }
 
-    const token = jwt.sign({ role: "admin" }, jwtSecret, { expiresIn: "7d" });
+    // 1. Token ki expiry 30 minutes set karein
+    const token = jwt.sign({ role: "admin" }, jwtSecret, { expiresIn: "30m" }); // 👈 "7d" se badal kar "30m" kiya
 
     const res = NextResponse.json({ ok: true });
+    
+    // 2. Cookie ki life bhi 30 minutes (1800 seconds) karein
     res.cookies.set("admin_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7,
+      maxAge: 30 * 60, // 👈 1800 seconds (yaani 30 minutes)
     });
 
     return res;
@@ -38,4 +41,3 @@ export async function POST(req) {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
-console.log("Server Password is:", process.env.ADMIN_PASSWORD);
