@@ -52,3 +52,16 @@ model PostTag {
 
   @@id([postId, tagId])
 }
+
+// Adobe Limit Tracker (500 per month)
+model ApiTracker {
+  id        String   @id @default(cuid())
+  service   String   // e.g. "ADOBE"
+  month     Int      // 0 = Jan, 1 = Feb, etc.
+  year      Int      // 2025
+  count     Int      @default(0) // Kitni files convert hui
+  updatedAt DateTime @updatedAt
+
+  // Ek mahine mein ek service ka ek hi record banega
+  @@unique([service, month, year])
+}

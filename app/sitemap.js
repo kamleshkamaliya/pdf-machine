@@ -34,6 +34,9 @@ export default async function sitemap() {
     '/contact',
     '/privacy-policy',
     '/terms',
+    '/unlock-pdf',
+    '/word-to-pdf',
+    
   ];
 
   const staticEntries = pageRoutes.map((route) => ({

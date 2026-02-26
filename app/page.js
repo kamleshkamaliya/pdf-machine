@@ -24,6 +24,34 @@ export default function Home() {
       link: "/merge-pdf",
       badge: "Popular",
     },
+   {
+      title: "Word to PDF",
+      desc: "Convert your DOC and DOCX files to PDF instantly while preserving original formatting and layout.",
+      icon: (
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          // Default color brand hai, group-hover pe white ho jayega
+          className="w-6 h-6 text-[#ff3b1d] group-hover:text-white transition-colors duration-300"
+        >
+          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <path d="M8 13h8"/>
+          <path d="M8 17h8"/>
+          <path d="M10 9H8"/>
+        </svg>
+      ),
+      link: "/word-to-pdf",
+      comingSoon: false,
+      badge: "New", 
+    },
     {
       title: "Split PDF",
       desc: "Extract pages from your PDF or save each page as separate file.",
@@ -32,14 +60,7 @@ export default function Home() {
       ),
       link: "/split-pdf",
     },
-    {
-      title: "Compress PDF",
-      desc: "Reduce file size while maintaining the best quality.",
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-      ),
-      link: "/compress-pdf",
-    },
+    
     {
       title: "JPG to PDF",
       desc: "Combine JPG, PNG, and WebP images into a single professional PDF document. Fast, secure, and 100% free.",
@@ -61,13 +82,21 @@ export default function Home() {
       link: "/pdf-to-jpg",
     },
     {
+      title: "Compress PDF",
+      desc: "Reduce file size while maintaining the best quality.",
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+      ),
+      link: "/compress-pdf",
+    },
+    {
       title: "Sign PDF",
       desc: "Add digital signatures to your documents securely.",
       icon: (
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
       ),
       link: "/sign-pdf", 
-      badge: "New",
+    
     },
     {
       title: "Protect PDF",
@@ -75,8 +104,19 @@ export default function Home() {
       icon: <Shield className="w-6 h-6" />,
       link: "/protect-pdf",
       comingSoon: false,
-      badge: "New",
+      badge: "Secure",
+     
     },
+        {
+      title: "Unlock PDF",
+      desc: "Remove password protection and security restrictions from your PDF files instantly. 100% free and secure.",
+      icon: <Lock className="w-6 h-6" />, // ✅ LockOpen icon with red color for 'Unlock' vibe
+      link: "/unlock-pdf",
+      comingSoon: false,
+      badge: "Popular", 
+    },
+ 
+
   ];
 
   return (

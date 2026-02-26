@@ -90,6 +90,8 @@ export default function RootLayout({ children }) {
                   <Link href="/jpg-to-pdf" className={`block px-4 py-2 text-sm rounded-xl font-bold ${isActive('/jpg-to-pdf') ? 'bg-orange-50 text-[#FF3B1D]' : 'text-slate-600 hover:bg-orange-50'}`}>JPG to PDF</Link>
                   <Link href="/pdf-to-jpg" className={`block px-4 py-2 text-sm rounded-xl font-bold ${isActive('/pdf-to-jpg') ? 'bg-orange-50 text-[#FF3B1D]' : 'text-slate-600 hover:bg-orange-50'}`}>PDF to JPG</Link>
                   <Link href="/protect-pdf" className={`block px-4 py-2 text-sm rounded-xl font-bold ${isActive('/protect-pdf') ? 'bg-orange-50 text-[#FF3B1D]' : 'text-slate-600 hover:bg-orange-50'}`}>Protect PDF</Link>
+                  <Link href="/unlock-pdf" className={`block px-4 py-2 text-sm rounded-xl font-bold ${isActive('/unlock-pdf') ? 'bg-orange-50 text-[#FF3B1D]' : 'text-slate-600 hover:bg-orange-50'}`}>Unlock PDF</Link>
+                  <Link href="/word-to-pdf" className={`block px-4 py-2 text-sm rounded-xl font-bold ${isActive('/word-to-pdf') ? 'bg-orange-50 text-[#FF3B1D]' : 'text-slate-600 hover:bg-orange-50'}`}>Word to PDF</Link>
                 </div>
               </div>
             </nav>
@@ -131,7 +133,9 @@ export default function RootLayout({ children }) {
                   <div className="flex flex-col gap-1 mx-2 bg-slate-50 rounded-2xl p-2">
                     <Link href="/jpg-to-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl ${isActive('/jpg-to-pdf') ? 'text-[#FF3B1D] bg-white' : 'text-slate-500'}`}>JPG to PDF</Link>
                     <Link href="/pdf-to-jpg" onClick={closeMenu} className={`py-3 px-4 rounded-xl ${isActive('/pdf-to-jpg') ? 'text-[#FF3B1D] bg-white' : 'text-slate-500'}`}>PDF to JPG</Link>
-                     <Link href="/protect-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl ${isActive('/protect-pdf') ? 'text-[#FF3B1D] bg-white' : 'text-slate-500'}`}>Protect PDF</Link>
+                    <Link href="/protect-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl ${isActive('/protect-pdf') ? 'text-[#FF3B1D] bg-white' : 'text-slate-500'}`}>Protect PDF</Link>
+                    <Link href="/unlock-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl ${isActive('/unlock-pdf') ? 'text-[#FF3B1D] bg-white' : 'text-slate-500'}`}>Unlock PDF</Link>
+                    <Link href="/word-to-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl ${isActive('/word-to-pdf') ? 'text-[#FF3B1D] bg-white' : 'text-slate-500'}`}>Word to PDF</Link>
                   </div>
                 )}
               </div>
