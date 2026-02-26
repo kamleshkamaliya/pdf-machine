@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
 import path from "path";
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
+import { existsSync } from "fs";
+
+// ❌ export default function POST(...) -- YEH GALAT HAI
+// ✅ export async function POST(...)    -- YEH SAHI HAI
 
 export async function POST(req) {
   try {
@@ -9,32 +12,31 @@ export async function POST(req) {
     const file = data.get('file');
 
     if (!file) {
-      return NextResponse.json({ success: false });
+      return NextResponse.json({ success: false, error: "No file found" }, { status: 400 });
     }
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // 1. Filename saaf karein (Spaces hatao, lowercase karo)
-    // Example: "My Photo.jpg" -> "my-photo.jpg"
     const cleanFilename = file.name.replace(/\s+/g, "-").toLowerCase();
-    
-    // 2. Timestamp lagayein taaki naam duplicate na ho
     const finalName = `${Date.now()}-${cleanFilename}`;
 
-    // 3. Path set karein
-    const pathOfFile = path.join(process.cwd(), 'public/uploads', finalName);
-    
+    const uploadDir = path.join(process.cwd(), "public/uploads");
+    const pathOfFile = path.join(uploadDir, finalName);
+
+    if (!existsSync(uploadDir)) {
+      await mkdir(uploadDir, { recursive: true });
+    }
+
     await writeFile(pathOfFile, buffer);
 
-    // 4. URL return karein (Bina 'public' ke)
     return NextResponse.json({ 
       success: true, 
       url: `/uploads/${finalName}` 
     });
 
   } catch (error) {
-    console.log(error);
-    return NextResponse.json({ success: false });
+    console.error("Upload Error:", error);
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
