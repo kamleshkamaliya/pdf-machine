@@ -90,3 +90,4 @@ tr:hover { background-color: #f1f1f1; }
   .blog-content-style h6 { font-size: 14px; line-height: 18px; }
 }
 
+.button{ cursor: pointer;}
