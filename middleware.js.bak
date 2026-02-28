@@ -2,19 +2,32 @@ import { NextResponse } from "next/server";
 
 export function middleware(req) {
   const { pathname } = req.nextUrl;
-  const token = req.cookies.get("admin_token")?.value;
 
-  // 1. Agar path /admin se shuru hota hai aur login page nahi hai
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    // 2. Agar token nahi hai, toh login par bhej do
-    if (!token) {
-      return NextResponse.redirect(new URL("/admin/login", req.url));
-    }
+  // 1. Agar path /admin se shuru nahi hota, toh ignore karo
+  if (!pathname.startsWith("/admin")) {
+    return NextResponse.next();
   }
 
+  // 2. Agar user login page par hai, toh use access karne do (varna loop ban jayega)
+  if (pathname === "/admin/login") {
+    return NextResponse.next();
+  }
+
+  // 3. Cookie se token check karo
+  const token = req.cookies.get("admin_token")?.value;
+
+  // 4. Agar token nahi hai, toh turant login page par redirect karo
+  if (!token) {
+    const loginUrl = new URL("/admin/login", req.url);
+    // User ne jo URL kholne ki koshish ki thi, use 'callback' mein save kar sakte hain (Optional)
+    return NextResponse.redirect(loginUrl);
+  }
+
+  // Token hai, toh aage badhne do
   return NextResponse.next();
 }
 
+// Ye config Next.js ko batati hai ki middleware kahan chalana hai
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*"], // Ye "/admin" aur uske baad ke saare paths ko cover karta hai
 };

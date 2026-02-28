@@ -52,6 +52,40 @@ export default function Home() {
       comingSoon: false,
       badge: "New", 
     },
+   {
+      title: "Smart AI Resume Checker", // High volume keyword: "Resume Checker"
+      desc: "Get a detailed ATS score, AI SEO audit, and find out exactly why your resume is rejected. Includes step-by-step action plan to fix it.", // Keywords: ATS Score, AI SEO, Rejected, Action Plan
+      icon: (
+        // Icon: Resume (File) + AI (Brain/Sparkle)
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          className="w-6 h-6 text-[#ff3b1d] group-hover:text-white transition-colors duration-300"
+        >
+          {/* Resume Outline */}
+          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7l-5-5z"/>
+          {/* Text Lines (Resume Content) */}
+          <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+          <path d="M10 9H8"/>
+          <path d="M16 13H8"/>
+          <path d="M16 17H8"/>
+          {/* AI/Brain Sparkle Effect (Top Right) */}
+          <path d="M21 7l-2-2"/> 
+          <path d="M22 4l-3 3"/>
+        </svg>
+      ),
+      link: "/resume-scorer", // Aapka naya page route
+      comingSoon: false,
+      badge: "AI Powered", // "New" se behtar "AI Powered" hai kyunki ye value dikhata hai
+    },
+
     {
       title: "Split PDF",
       desc: "Extract pages from your PDF or save each page as separate file.",
@@ -115,7 +149,35 @@ export default function Home() {
       comingSoon: false,
       badge: "Popular", 
     },
- 
+ {
+      title: "PDF to Word",
+      desc: "Convert PDF files to editable Word (DOCX) documents. Powered by AI for high accuracy.",
+      // Custom Word Icon (Blue & Clean)
+      icon: (
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          className="w-6 h-6  group-hover:text-white transition-colors duration-300"
+        >
+          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <path d="M12 18v-6"/>
+          <path d="M9 15l3 3 3-3"/>
+        </svg>
+      ),
+      link: "/pdf-to-word",
+      comingSoon: false,
+      badge: "Hot", // Ye tool sabse zyada demand mein rehta hai
+    },
+
+
 
   ];
 

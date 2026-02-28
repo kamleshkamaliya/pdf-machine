@@ -36,6 +36,11 @@ export default async function sitemap() {
     '/terms',
     '/unlock-pdf',
     '/word-to-pdf',
+    '/pdf-to-word',
+    '/resume-scorer',
+    
+    
+    
     
   ];
 
