@@ -52,11 +52,11 @@ export default function Home() {
       comingSoon: false,
       badge: "New", 
     },
-   {
-      title: "Smart AI Resume Checker", // High volume keyword: "Resume Checker"
+
+  {
+      title: "Smart AI Resume Checker", 
       desc: "Get a detailed ATS score, AI SEO audit, and find out exactly why your resume is rejected. Includes step-by-step action plan to fix it.", // Keywords: ATS Score, AI SEO, Rejected, Action Plan
       icon: (
-        // Icon: Resume (File) + AI (Brain/Sparkle)
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
           width="24" 
@@ -64,27 +64,25 @@ export default function Home() {
           viewBox="0 0 24 24" 
           fill="none" 
           stroke="currentColor" 
-          strokeWidth="2" 
+          strokeWidth="1.5" /* Premium Thin Look */
           strokeLinecap="round" 
           strokeLinejoin="round" 
           className="w-6 h-6 text-[#ff3b1d] group-hover:text-white transition-colors duration-300"
         >
-          {/* Resume Outline */}
-          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7l-5-5z"/>
-          {/* Text Lines (Resume Content) */}
-          <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
-          <path d="M10 9H8"/>
-          <path d="M16 13H8"/>
-          <path d="M16 17H8"/>
-          {/* AI/Brain Sparkle Effect (Top Right) */}
-          <path d="M21 7l-2-2"/> 
-          <path d="M22 4l-3 3"/>
+          {/* Brain Outline (Thin Version) */}
+          <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .52 8.105 3 3 0 1 0 5.997-.125" />
+          <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.52 8.105 3 3 0 1 1-5.997-.125" />
+          {/* Central AI Connection Line */}
+          <line x1="12" y1="9" x2="12" y2="15" />
+          {/* Mini Sparkles to give 'Premium' feel */}
+          <path d="M19 3l.01 0M21 5l.01 0M17 5l.01 0" strokeWidth="2" />
         </svg>
       ),
-      link: "/resume-scorer", // Aapka naya page route
+      link: "/resume-scorer",
       comingSoon: false,
-      badge: "AI Powered", // "New" se behtar "AI Powered" hai kyunki ye value dikhata hai
+      badge: "Free AI Checkup", 
     },
+
 
     {
       title: "Split PDF",
