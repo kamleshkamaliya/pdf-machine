@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { 
   Menu, X, ChevronDown, Share2, Facebook, Linkedin, 
   Mail, Copy, CheckCircle2, FileImage, FileText, Lock, Unlock, 
-  BrainCircuit
+  BrainCircuit, MessageSquare
 } from "lucide-react";
 import Script from "next/script";
 
@@ -39,12 +39,12 @@ export default function RootLayout({ children }) {
 
   const isActive = (path) => pathname === path;
 
-  // Helper for Mega Menu Item Styling (Active State included)
-  const MegaMenuItem = ({ href, icon: Icon, title, desc, colorClass, activeColorClass }) => {
+  // ✅ FIX: Removed the buggy hover white color. Now the icon will retain its beautiful original color on hover.
+  const MegaMenuItem = ({ href, icon: Icon, title, desc, colorClass }) => {
     const active = isActive(href);
     return (
       <Link href={href} className={`flex items-center gap-3 p-3 rounded-xl group/item transition-all ${active ? 'bg-orange-50' : 'hover:bg-slate-50'}`}>
-        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${active ? 'bg-[#FF3B1D] text-white' : `${colorClass} group-hover/item:${activeColorClass} group-hover/item:text-white`}`}>
+        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${active ? 'bg-[#FF3B1D] text-white' : colorClass}`}>
           <Icon size={18} />
         </div>
         <div>
@@ -64,7 +64,7 @@ export default function RootLayout({ children }) {
   // List of all paths under "More Tools" to highlight parent button
   const moreToolsPaths = [
     '/jpg-to-pdf', '/pdf-to-jpg', '/protect-pdf', '/unlock-pdf', 
-    '/word-to-pdf', '/pdf-to-word', '/resume-scorer'
+    '/word-to-pdf', '/pdf-to-word', '/resume-scorer', '/chat-pdf' 
   ];
 
   return (
@@ -118,16 +118,13 @@ export default function RootLayout({ children }) {
                         title="Word to PDF" 
                         desc="DOCX to PDF instantly" 
                         colorClass="bg-blue-50 text-blue-600" 
-                        activeColorClass="bg-blue-600"
                       />
-                      {/* ✅ NEW: PDF to Word Added */}
                       <MegaMenuItem 
                         href="/pdf-to-word" 
                         icon={FileText} 
                         title="PDF to Word" 
                         desc="Convert PDF to editable DOC" 
                         colorClass="bg-indigo-50 text-indigo-600" 
-                        activeColorClass="bg-indigo-600"
                       />
                       <MegaMenuItem 
                         href="/jpg-to-pdf" 
@@ -135,7 +132,6 @@ export default function RootLayout({ children }) {
                         title="JPG to PDF" 
                         desc="Convert images to PDF" 
                         colorClass="bg-yellow-50 text-yellow-600" 
-                        activeColorClass="bg-yellow-500"
                       />
                       <MegaMenuItem 
                         href="/pdf-to-jpg" 
@@ -143,7 +139,6 @@ export default function RootLayout({ children }) {
                         title="PDF to JPG" 
                         desc="Extract images from PDF" 
                         colorClass="bg-green-50 text-green-600" 
-                        activeColorClass="bg-green-600"
                       />
                     </div>
                   </div>
@@ -158,7 +153,6 @@ export default function RootLayout({ children }) {
                         title="Protect PDF" 
                         desc="Encrypt with password" 
                         colorClass="bg-purple-50 text-purple-600" 
-                        activeColorClass="bg-purple-600"
                       />
                       <MegaMenuItem 
                         href="/unlock-pdf" 
@@ -166,9 +160,20 @@ export default function RootLayout({ children }) {
                         title="Unlock PDF" 
                         desc="Remove passwords" 
                         colorClass="bg-gray-50 text-gray-600" 
-                        activeColorClass="bg-gray-600"
                       />
                       
+                      <Link href="/chat-pdf" className={`flex items-center gap-3 p-3 rounded-xl border transition-all mt-2 group/item ${isActive('/chat-pdf') ? 'bg-orange-50 border-[#FF3B1D]' : 'bg-orange-50/50 border-orange-100 hover:bg-orange-100'}`}>
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shadow-md shadow-orange-500/20 ${isActive('/chat-pdf') ? 'bg-[#FF3B1D] text-white' : 'bg-[#FF3B1D] text-white'}`}>
+                          <MessageSquare size={18} />
+                        </div>
+                        <div>
+                          <p className={`font-bold text-sm flex items-center gap-2 ${isActive('/chat-pdf') ? 'text-[#FF3B1D]' : 'text-[#FF3B1D]'}`}>
+                             Chat with PDF <span className="text-[9px] bg-[#FF3B1D] text-white px-1.5 py-0.5 rounded-full">AI</span>
+                          </p>
+                          <p className="text-[11px] text-slate-500 font-medium">Ask questions to your document</p>
+                        </div>
+                      </Link>
+
                       <Link href="/resume-scorer" className={`flex items-center gap-3 p-3 rounded-xl border transition-all mt-2 group/item ${isActive('/resume-scorer') ? 'bg-orange-50 border-[#FF3B1D]' : 'bg-orange-50/50 border-orange-100 hover:bg-orange-100'}`}>
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center shadow-md shadow-orange-500/20 ${isActive('/resume-scorer') ? 'bg-[#FF3B1D] text-white' : 'bg-[#FF3B1D] text-white'}`}>
                           <BrainCircuit size={18} />
@@ -205,7 +210,7 @@ export default function RootLayout({ children }) {
             </div>
           </div>
 
-          {/* Mobile Menu (Updated) */}
+          {/* Mobile Menu */}
           <div className={`lg:hidden fixed inset-0 top-16 bg-white w-full h-[calc(100vh-4rem)] z-[90] transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <nav className="flex flex-col p-6 gap-2 text-[16px] font-bold h-full overflow-y-auto pb-20">
               <Link href="/merge-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl ${isActive('/merge-pdf') ? 'text-[#FF3B1D] bg-orange-50' : 'text-slate-600 hover:bg-slate-50'}`}>Merge PDF</Link>
@@ -219,7 +224,6 @@ export default function RootLayout({ children }) {
               <Link href="/word-to-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl flex items-center gap-3 ${isActive('/word-to-pdf') ? 'text-[#FF3B1D] bg-orange-50' : 'text-slate-600 hover:bg-slate-50'}`}>
                  <FileText size={18}/> Word to PDF
               </Link>
-              {/* ✅ NEW: PDF to Word Mobile */}
               <Link href="/pdf-to-word" onClick={closeMenu} className={`py-3 px-4 rounded-xl flex items-center gap-3 ${isActive('/pdf-to-word') ? 'text-[#FF3B1D] bg-orange-50' : 'text-slate-600 hover:bg-slate-50'}`}>
                  <FileText size={18}/> PDF to Word
               </Link>
@@ -239,7 +243,12 @@ export default function RootLayout({ children }) {
               <Link href="/unlock-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl flex items-center gap-3 ${isActive('/unlock-pdf') ? 'text-[#FF3B1D] bg-orange-50' : 'text-slate-600 hover:bg-slate-50'}`}>
                  <Unlock size={18}/> Unlock PDF
               </Link>
-              <Link href="/resume-scorer" onClick={closeMenu} className={`py-3 px-4 rounded-xl flex items-center gap-3 bg-gradient-to-r from-orange-50 to-white border border-orange-100 ${isActive('/resume-scorer') ? 'text-[#FF3B1D]' : 'text-[#FF3B1D]'}`}>
+              
+              <Link href="/chat-pdf" onClick={closeMenu} className={`py-3 px-4 rounded-xl flex items-center gap-3 bg-gradient-to-r from-orange-50 to-white border border-orange-100 ${isActive('/chat-pdf') ? 'text-[#FF3B1D]' : 'text-[#FF3B1D]'}`}>
+                 <MessageSquare size={18}/> Chat with PDF <span className="text-[9px] bg-[#FF3B1D] text-white px-1.5 py-0.5 rounded-full ml-auto">AI</span>
+              </Link>
+
+              <Link href="/resume-scorer" onClick={closeMenu} className={`py-3 px-4 rounded-xl flex items-center gap-3 bg-gradient-to-r from-orange-50 to-white border border-orange-100 mt-2 ${isActive('/resume-scorer') ? 'text-[#FF3B1D]' : 'text-[#FF3B1D]'}`}>
                  <BrainCircuit size={18}/> AI Resume Checker <span className="text-[9px] bg-[#FF3B1D] text-white px-1.5 py-0.5 rounded-full ml-auto">NEW</span>
               </Link>
               

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Lock, Shield } from "lucide-react";
+import { Lock, Shield, MessageSquare } from "lucide-react";
 
 // 👇 PATH FIXED HERE ( ./ lagaya hai )
 import HomeFaq from "./components/HomeFaq"; 
@@ -24,7 +24,7 @@ export default function Home() {
       link: "/merge-pdf",
       badge: "Popular",
     },
-   {
+    {
       title: "Word to PDF",
       desc: "Convert your DOC and DOCX files to PDF instantly while preserving original formatting and layout.",
       icon: (
@@ -52,10 +52,9 @@ export default function Home() {
       comingSoon: false,
       badge: "New", 
     },
-
-  {
+    {
       title: "Smart AI Resume Checker", 
-      desc: "Get a detailed ATS score, AI SEO audit, and find out exactly why your resume is rejected. Includes step-by-step action plan to fix it.", // Keywords: ATS Score, AI SEO, Rejected, Action Plan
+      desc: "Get a detailed ATS score, AI SEO audit, and find out exactly why your resume is rejected. Includes step-by-step action plan to fix it.",
       icon: (
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
@@ -64,17 +63,14 @@ export default function Home() {
           viewBox="0 0 24 24" 
           fill="none" 
           stroke="currentColor" 
-          strokeWidth="1.5" /* Premium Thin Look */
+          strokeWidth="1.5" 
           strokeLinecap="round" 
           strokeLinejoin="round" 
           className="w-6 h-6 text-[#ff3b1d] group-hover:text-white transition-colors duration-300"
         >
-          {/* Brain Outline (Thin Version) */}
           <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .52 8.105 3 3 0 1 0 5.997-.125" />
           <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.52 8.105 3 3 0 1 1-5.997-.125" />
-          {/* Central AI Connection Line */}
           <line x1="12" y1="9" x2="12" y2="15" />
-          {/* Mini Sparkles to give 'Premium' feel */}
           <path d="M19 3l.01 0M21 5l.01 0M17 5l.01 0" strokeWidth="2" />
         </svg>
       ),
@@ -82,8 +78,15 @@ export default function Home() {
       comingSoon: false,
       badge: "Free AI Checkup", 
     },
-
-
+    // 👇 NEW TOOL ADDED HERE
+    {
+      title: "Chat with PDF",
+      desc: "Stop reading long documents. Ask AI to summarize, extract data, or explain any PDF instantly.",
+      icon: <MessageSquare className="w-6 h-6 text-[#ff3b1d] group-hover:text-white transition-colors duration-300" />,
+      link: "/chat-pdf",
+      comingSoon: false,
+      badge: "Free AI", 
+    },
     {
       title: "Split PDF",
       desc: "Extract pages from your PDF or save each page as separate file.",
@@ -92,7 +95,6 @@ export default function Home() {
       ),
       link: "/split-pdf",
     },
-    
     {
       title: "JPG to PDF",
       desc: "Combine JPG, PNG, and WebP images into a single professional PDF document. Fast, secure, and 100% free.",
@@ -128,7 +130,6 @@ export default function Home() {
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
       ),
       link: "/sign-pdf", 
-    
     },
     {
       title: "Protect PDF",
@@ -137,20 +138,18 @@ export default function Home() {
       link: "/protect-pdf",
       comingSoon: false,
       badge: "Secure",
-     
     },
-        {
+    {
       title: "Unlock PDF",
       desc: "Remove password protection and security restrictions from your PDF files instantly. 100% free and secure.",
-      icon: <Lock className="w-6 h-6" />, // ✅ LockOpen icon with red color for 'Unlock' vibe
+      icon: <Lock className="w-6 h-6" />, 
       link: "/unlock-pdf",
       comingSoon: false,
       badge: "Popular", 
     },
- {
+    {
       title: "PDF to Word",
       desc: "Convert PDF files to editable Word (DOCX) documents. Powered by AI for high accuracy.",
-      // Custom Word Icon (Blue & Clean)
       icon: (
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
@@ -172,11 +171,8 @@ export default function Home() {
       ),
       link: "/pdf-to-word",
       comingSoon: false,
-      badge: "Hot", // Ye tool sabse zyada demand mein rehta hai
+      badge: "Hot", 
     },
-
-
-
   ];
 
   return (
