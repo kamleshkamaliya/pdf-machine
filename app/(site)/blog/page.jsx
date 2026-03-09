@@ -92,10 +92,12 @@ export default async function BlogListing({ searchParams }) {
                         </div>
                       )}
                       
-                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 shadow-sm flex items-center gap-1.5">
+          
+                      {/* <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 shadow-sm flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5 text-[#ff3b1d]" />
                         {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : "Draft"}
-                      </div>
+                      </div> */}
+
                     </div>
 
                     {/* Content Body */}

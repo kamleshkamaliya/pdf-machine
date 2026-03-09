@@ -39,8 +39,7 @@ export default async function sitemap() {
     '/pdf-to-word',
     '/resume-scorer',
     '/chat-pdf',
-    
-    
+       
     
   ];
 
