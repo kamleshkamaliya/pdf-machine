@@ -40,7 +40,9 @@ export async function POST(req) {
     const modelsToTry = [
       "gemini-2.5-flash",                   // 1. Latest & Best
       "gemini-2.0-flash-lite-preview-02-05", // 2. High Limit Backup
-      "gemini-1.5-flash"                    // 3. Old Reliable
+      "gemini-3-flash",
+      "gemini-2.5-flash-native-audio-dialog-preview"
+
     ];
 
     let result = null;

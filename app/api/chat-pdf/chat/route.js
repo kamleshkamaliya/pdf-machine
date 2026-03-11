@@ -22,7 +22,10 @@ export async function POST(req) {
 
     const modelsToTry = [
       "gemini-2.5-flash",
-      "gemini-1.5-flash"
+      "gemini-1.5-flash",
+      "gemini-3-flash", // Primary
+      "gemini-2.5-flash-native-audio-dialog-preview", // Voice capability ke liye
+
     ];
 
     let result = null;
