@@ -11,17 +11,18 @@ export async function POST(req) {
   try {
     const data = await req.formData();
     const file = data.get("file");
-    const password = data.get("password");
+    
+    // Trim spaces and escape quotes for safe password
+    const rawPassword = data.get("password") || "";
+    const password = rawPassword.trim().replace(/"/g, '\\"');
 
-    // 1. Basic Validation
     if (!file || !password) {
-      return NextResponse.json({ error: "File aur password dono zaroori hain." }, { status: 400 });
+      return NextResponse.json({ error: "File and password required." }, { status: 400 });
     }
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // 2. Temp Directory Setup (Server-safe 'tmp' folder)
     const tempDir = path.join(process.cwd(), "tmp");
     if (!existsSync(tempDir)) {
       await mkdir(tempDir, { recursive: true });
@@ -32,34 +33,35 @@ export async function POST(req) {
 
     await writeFile(inputPath, buffer);
 
-    // 3. Password Escaping (Special characters handle karne ke liye)
-    const safePassword = password.replace(/'/g, "'\\''");
-    
-    // QPDF Decrypt Command
-    const command = `qpdf --decrypt --password='${safePassword}' "${inputPath}" "${outputPath}"`;
+    const command = `qpdf --decrypt --password="${password}" "${inputPath}" "${outputPath}"`;
 
     try {
       await execPromise(command);
     } catch (cmdError) {
-      console.error("QPDF Command Error:", cmdError.stderr || cmdError.message);
-      
-      // Error ke waqt bhi cleanup karein
-      if (existsSync(inputPath)) await unlink(inputPath);
-      
-      // Frontend ko JSON mein error bhejein
-      return NextResponse.json({ 
-        error: "Incorrect password or the file is already unlocked." 
-      }, { status: 400 });
+      // 🚨 FIX: QPDF Exit Code 3 means "Success with warnings" (Standard for Bank PDFs)
+      if (cmdError.code === 3) {
+        console.log("✅ Bank PDF Unlocked successfully (ignoring QPDF structural warnings).");
+      } else {
+        console.error("❌ REAL QPDF ERROR:", cmdError.stderr || cmdError.message);
+        if (existsSync(inputPath)) await unlink(inputPath);
+        if (existsSync(outputPath)) await unlink(outputPath);
+        return NextResponse.json({ error: "Incorrect password or corrupted file." }, { status: 400 });
+      }
     }
 
-    // 4. Result Read Karein
-    const outputBuffer = await readFile(outputPath);
+    // Check if the unlocked file was successfully generated
+    if (!existsSync(outputPath)) {
+      if (existsSync(inputPath)) await unlink(inputPath);
+      return NextResponse.json({ error: "Could not generate unlocked file." }, { status: 400 });
+    }
 
-    // 5. Cleanup (Files delete karein taaki server storage na bhare)
+    // Success path
+    const outputBuffer = await readFile(outputPath);
+    
+    // Cleanup
     await unlink(inputPath);
     await unlink(outputPath);
 
-    // 6. File Return Karein (Blob format mein)
     return new NextResponse(outputBuffer, {
       headers: {
         "Content-Type": "application/pdf",
@@ -69,7 +71,6 @@ export async function POST(req) {
 
   } catch (error) {
     console.error("Critical API Error:", error);
-    // Hamesha JSON bhejye taaki frontend crash na ho
-    return NextResponse.json({ error: "Server Action Failed: " + error.message }, { status: 500 });
+    return NextResponse.json({ error: "Server Error: " + error.message }, { status: 500 });
   }
 }
